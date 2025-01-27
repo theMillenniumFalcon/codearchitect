@@ -4,6 +4,8 @@ import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { PromptCarousel } from "@/components/prompt-carousel"
+import { Query } from "@/types"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
@@ -15,6 +17,8 @@ export default function Home() {
   })
 
   const handleSubmit = () => {}
+
+  const handlePromptSelect = () => {}
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -43,6 +47,9 @@ export default function Home() {
                   Get blueprint
                 </Button>
               </form>
+              {!currentQuery.breakdown && !isLoading && (
+                <PromptCarousel onPromptSelect={handlePromptSelect} />
+              )}
             </div>
           </Card>
         </div>
