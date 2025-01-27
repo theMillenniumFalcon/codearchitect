@@ -11,6 +11,19 @@ export default function Home() {
           </Card>
         </div>
       </div>
+
+      <footer className="w-full py-4 mt-auto">
+        <p className="text-center text-xs blueprint-text opacity-50">
+          <a 
+            href="https://github.com/themillenniumfalcon/codearchitect" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:opacity-80 transition-opacity"
+          >
+            Source code
+          </a>
+        </p>
+      </footer>
     </div>
   )
 }
