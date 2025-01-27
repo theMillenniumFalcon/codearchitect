@@ -9,6 +9,7 @@ import { Query } from "@/types"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [currentQuery, setCurrentQuery] = useState<Query>({
     idea: "",
     depth: 1,
@@ -18,7 +19,26 @@ export default function Home() {
 
   const handleSubmit = () => {}
 
-  const handlePromptSelect = () => {}
+  const handlePromptSelect = (prompt: string) => {
+    const newQuery = {
+      idea: prompt,
+      depth: 1,
+      focusArea: null,
+      breakdown: null
+    }
+
+    setCurrentQuery(newQuery)
+    setIsLoading(true)
+    setError(null)
+
+    try {
+
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An unexpected error occurred")
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -54,19 +74,6 @@ export default function Home() {
           </Card>
         </div>
       </div>
-
-      <footer className="w-full py-4 mt-auto">
-        <p className="text-center text-xs blueprint-text opacity-50">
-          <a 
-            href="https://github.com/themillenniumfalcon/codearchitect" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="hover:opacity-80 transition-opacity"
-          >
-            Source code
-          </a>
-        </p>
-      </footer>
     </div>
   )
 }

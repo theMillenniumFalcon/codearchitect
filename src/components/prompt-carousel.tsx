@@ -8,7 +8,7 @@ interface PromptCarouselProps {
     onPromptSelect: (prompt: string) => void
 }
 
-export const PromptCarousel: React.FC<PromptCarouselProps> = ({}) => {
+export const PromptCarousel: React.FC<PromptCarouselProps> = ({ onPromptSelect }) => {
     const topRowRef = useRef<HTMLDivElement>(null)
     const bottomRowRef = useRef<HTMLDivElement>(null)
     const [topRowOffset, setTopRowOffset] = useState(0)
@@ -16,7 +16,9 @@ export const PromptCarousel: React.FC<PromptCarouselProps> = ({}) => {
     const [isTopRowPaused, setIsTopRowPaused] = useState(false)
     const [isBottomRowPaused, setIsBottomRowPaused] = useState(false)
 
-    const handlePromptClick = (prompt: string) => {}
+    const handlePromptClick = (prompt: string) => {
+        onPromptSelect(prompt)
+    }
 
     return (
         <div className="relative w-full overflow-hidden py-4 mb-6 rounded-md">
