@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { PromptCarousel } from "@/components/prompt-carousel"
+import LoadingScreen from "@/components/loading-screen"
 import { Query } from "@/types"
 
 export default function Home() {
@@ -71,6 +72,7 @@ export default function Home() {
                 <PromptCarousel onPromptSelect={handlePromptSelect} />
               )}
             </div>
+            {isLoading && <LoadingScreen />}
           </Card>
         </div>
       </div>
