@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { topRowPrompts, bottomRowPrompts } from "@/constants"
 import { Button } from "./ui/button"
 
@@ -15,6 +15,41 @@ export const PromptCarousel: React.FC<PromptCarouselProps> = ({ onPromptSelect }
     const [bottomRowOffset, setBottomRowOffset] = useState(0)
     const [isTopRowPaused, setIsTopRowPaused] = useState(false)
     const [isBottomRowPaused, setIsBottomRowPaused] = useState(false)
+
+    useEffect(() => {
+        let animationFrameId: number
+        let lastTimestamp = 0
+    
+        const animate = (timestamp: number) => {
+            if (lastTimestamp === 0) {
+                lastTimestamp = timestamp
+            }
+    
+            const deltaTime = timestamp - lastTimestamp
+            lastTimestamp = timestamp
+    
+            if (!isTopRowPaused && topRowRef.current) {
+                setTopRowOffset((prevOffset) => {
+                    const newOffset = (prevOffset + 0.02 * deltaTime) % (topRowRef.current!.scrollWidth / 2)
+                    return newOffset
+                })
+            }
+            if (!isBottomRowPaused && bottomRowRef.current) {
+                setBottomRowOffset((prevOffset) => {
+                    const newOffset = (prevOffset - 0.02 * deltaTime + bottomRowRef.current!.scrollWidth / 2) % (bottomRowRef.current!.scrollWidth / 2)
+                    return newOffset
+                })
+            }
+    
+            animationFrameId = requestAnimationFrame(animate)
+        }
+    
+        animationFrameId = requestAnimationFrame(animate)
+    
+        return () => {
+            cancelAnimationFrame(animationFrameId)
+        }
+    }, [isTopRowPaused, isBottomRowPaused])
 
     const handlePromptClick = (prompt: string) => {
         onPromptSelect(prompt)
@@ -72,6 +107,8 @@ export const PromptCarousel: React.FC<PromptCarouselProps> = ({ onPromptSelect }
                     </div>
                 </div>
             </div>
+            <div className="absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-[#1e3a8a] to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-[#1e3a8a] to-transparent pointer-events-none" />
         </div>
     )
 }
