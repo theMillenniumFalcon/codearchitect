@@ -1,11 +1,12 @@
 "use client"
 
 import React, { useState } from "react"
+import { PromptCarousel } from "@/components/prompt-carousel"
+import LoadingScreen from "@/components/loading-screen"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { PromptCarousel } from "@/components/prompt-carousel"
-import LoadingScreen from "@/components/loading-screen"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Query } from "@/types"
 
 export default function Home() {
@@ -72,7 +73,14 @@ export default function Home() {
                 <PromptCarousel onPromptSelect={handlePromptSelect} />
               )}
             </div>
+
             {isLoading && <LoadingScreen />}
+
+            {error && (
+              <Alert variant="destructive" className="mt-4 border border-2 border-blue-200 bg-blue-50/50 text-blue-900">
+                <AlertDescription className="font-medium">⚠️ {error}</AlertDescription>
+              </Alert>
+            )}
           </Card>
         </div>
       </div>
