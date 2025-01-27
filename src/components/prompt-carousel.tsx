@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useRef } from "react"
-import { topRowPrompts } from "@/constants"
+import { topRowPrompts, bottomRowPrompts } from "@/constants"
 import { Button } from "./ui/button"
 
 interface PromptCarouselProps {
@@ -10,8 +10,11 @@ interface PromptCarouselProps {
 
 export const PromptCarousel: React.FC<PromptCarouselProps> = ({}) => {
     const topRowRef = useRef<HTMLDivElement>(null)
+    const bottomRowRef = useRef<HTMLDivElement>(null)
     const [topRowOffset, setTopRowOffset] = useState(0)
+    const [bottomRowOffset, setBottomRowOffset] = useState(0)
     const [isTopRowPaused, setIsTopRowPaused] = useState(false)
+    const [isBottomRowPaused, setIsBottomRowPaused] = useState(false)
 
     const handlePromptClick = (prompt: string) => {}
 
@@ -42,7 +45,30 @@ export const PromptCarousel: React.FC<PromptCarouselProps> = ({}) => {
                         })}
                     </div>
                 </div>
-                
+                <div className="relative overflow-hidden">
+                    <div 
+                        ref={bottomRowRef}
+                        className="flex gap-4 whitespace-nowrap"
+                        style={{ transform: `translateX(-${bottomRowOffset}px)` }}
+                        onMouseEnter={() => setIsBottomRowPaused(true)}
+                        onMouseLeave={() => setIsBottomRowPaused(false)}
+                    >
+                        {[...bottomRowPrompts, ...bottomRowPrompts].map((prompt, index) => {
+                            const Icon = prompt.icon
+                            return (
+                                <Button
+                                    key={`${prompt.id}-${index}`}
+                                    variant="outline"
+                                    className="flex items-center gap-2 whitespace-nowrap blueprint-button"
+                                    onClick={() => handlePromptClick(prompt.text)}
+                                >
+                                    <Icon className="w-4 h-4" />
+                                    <span className="blueprint-text">{prompt.text}</span>
+                                </Button>
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     )
