@@ -2,22 +2,20 @@
 
 import React, { useState } from "react"
 import { PromptCarousel } from "@/components/prompt-carousel"
-import LoadingScreen from "@/components/loading-screen"
+import { LoadingScreen } from "@/components/loading-screen"
+import { QueryHistory } from "@/components/query-history"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Query } from "@/types"
+import { mockCurrentQuery, mockQueryHistory } from "@/data"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [currentQuery, setCurrentQuery] = useState<Query>({
-    idea: "",
-    depth: 1,
-    focusArea: null,
-    breakdown: null
-  })
+  const [currentQuery, setCurrentQuery] = useState<Query>(mockCurrentQuery)
+  const [queryHistory, setQueryHistory] = useState<Query[]>(mockQueryHistory)
 
   const handleSubmit = () => {}
 
@@ -40,6 +38,10 @@ export default function Home() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleNavigateToQuery = (index: number) => {
+    setCurrentQuery(queryHistory[index])
   }
 
   return (
@@ -80,6 +82,16 @@ export default function Home() {
               <Alert variant="destructive" className="mt-4 border border-2 border-blue-200 bg-blue-50/50 text-blue-900">
                 <AlertDescription className="font-medium">⚠️ {error}</AlertDescription>
               </Alert>
+            )}
+
+            {currentQuery.breakdown && (
+              <div className="mt-8">
+                <QueryHistory
+                  history={queryHistory.map(query => ({ idea: query.idea, focusArea: query.focusArea }))}
+                  currentIndex={queryHistory.length - 1}
+                  onSelect={handleNavigateToQuery}
+                />
+              </div>
             )}
           </Card>
         </div>

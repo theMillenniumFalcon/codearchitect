@@ -15,7 +15,7 @@ const loadingSteps = [
     "Creating blueprint..."
 ]
 
-export default function LoadingScreen() {
+export const LoadingScreen = () => {
     const [currentStep, setCurrentStep] = useState(0)
 
     useEffect(() => {
