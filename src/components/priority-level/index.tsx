@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { ChevronDown, ChevronRight } from "lucide-react"
 import { FrontendComponent } from "./frontend-component"
+import { BackendService } from "./backend-service"
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card"
 import { Button } from "../ui/button"
 import { Breakdown } from "@/types"
@@ -60,6 +61,17 @@ export const PriorityLevel: React.FC<PriorityLevelProps> = ({
                         />
                     )) || (
                         <p className="blueprint-text">No frontend components for this priority level.</p>
+                    )}
+                    <h4 className="blueprint-subheading mt-8">Backend Services:</h4>
+                    {breakdown.priorities[priority]?.backend?.services?.map((service, index) => (
+                        <BackendService
+                            key={index}
+                            service={service}
+                            toggleComponentExpansion={toggleComponentExpansion}
+                            expandedComponents={expandedComponents}
+                        />
+                    )) || (
+                        <p className="blueprint-text">No backend services for this priority level.</p>
                     )}
                 </CardContent>
             )}
