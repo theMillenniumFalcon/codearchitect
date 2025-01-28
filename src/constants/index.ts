@@ -16,13 +16,13 @@ export const topRowPrompts: Prompt[] = [
 ]
 
 export const bottomRowPrompts: Prompt[] = [
-    { id: '10', icon: Palette, text: "Collaborative digital whiteboard" },
-    { id: '11', icon: Film, text: "Movie recommendation engine" },
-    { id: '12', icon: Zap, text: "Home energy consumption tracker" },
-    { id: '13', icon: Briefcase, text: "Freelance project management tool" },
-    { id: '14', icon: Gamepad2, text: "Video game emulator" },
-    { id: '15', icon: ShoppingBag, text: "Sustainable fashion marketplace" },
-    { id: '16', icon: Microscope, text: "Citizen science data collection app" },
-    { id: '17', icon: Globe, text: "Language exchange platform" },
-    { id: '18', icon: Cpu, text: "IoT device management dashboard" },
+    { id: "10", icon: Palette, text: "Collaborative digital whiteboard" },
+    { id: "11", icon: Film, text: "Movie recommendation engine" },
+    { id: "12", icon: Zap, text: "Home energy consumption tracker" },
+    { id: "13", icon: Briefcase, text: "Freelance project management tool" },
+    { id: "14", icon: Gamepad2, text: "Video game emulator" },
+    { id: "15", icon: ShoppingBag, text: "Sustainable fashion marketplace" },
+    { id: "16", icon: Microscope, text: "Citizen science data collection app" },
+    { id: "17", icon: Globe, text: "Language exchange platform" },
+    { id: "18", icon: Cpu, text: "IoT device management dashboard" },
 ]

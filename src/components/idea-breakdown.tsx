@@ -78,7 +78,7 @@ export const IdeaBreakdown: React.FC<IdeaBreakdownProps> = ({ breakdown }) => {
                         </Button>
                     </CardTitle>
                 </CardHeader>
-                {expandedSections.includes('developmentSteps') && (
+                {expandedSections.includes("developmentSteps") && (
                     <CardContent>
                         {breakdown.developmentSteps.map((phase, index) => (
                             <div key={index} className="mb-4 mt-6">

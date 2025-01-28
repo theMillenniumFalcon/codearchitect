@@ -73,6 +73,18 @@ export const PriorityLevel: React.FC<PriorityLevelProps> = ({
                     )) || (
                         <p className="blueprint-text">No backend services for this priority level.</p>
                     )}
+                    <div className="mt-4">
+                        <h4 className="blueprint-subheading mb-2 mt-8">Data Model:</h4>
+                        {breakdown.priorities[priority]?.backend?.dataModel?.length > 0 ? (
+                            <ul className="list-disc pl-5 blueprint-text">
+                                {breakdown.priorities[priority].backend.dataModel.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="blueprint-text">No data model defined for this priority level.</p>
+                        )}
+                    </div>
                 </CardContent>
             )}
         </Card>
