@@ -15,7 +15,9 @@ const loadingSteps = [
     "Creating blueprint..."
 ]
 
-export const LoadingScreen = () => {
+interface LoadingScreenProps {}
+
+export const LoadingScreen: React.FC<LoadingScreenProps> = () => {
     const [currentStep, setCurrentStep] = useState(0)
 
     useEffect(() => {

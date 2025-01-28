@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { PromptCarousel } from "@/components/prompt-carousel"
 import { LoadingScreen } from "@/components/loading-screen"
 import { QueryHistory } from "@/components/query-history"
+import { IdeaBreakdown } from "@/components/idea-breakdown"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -90,6 +91,9 @@ export default function Home() {
                   history={queryHistory.map(query => ({ idea: query.idea, focusArea: query.focusArea }))}
                   currentIndex={queryHistory.length - 1}
                   onSelect={handleNavigateToQuery}
+                />
+                <IdeaBreakdown
+                  breakdown={currentQuery.breakdown}
                 />
               </div>
             )}
