@@ -34,13 +34,13 @@ type PriorityLevel = {
     }
 }
 
-type Component = {
+export type Component = {
     name: string;
     description: string;
     requirements: string[];
 }
 
-type Service = {
+export type Service = {
     name: string;
     description: string;
     requirements: string[];

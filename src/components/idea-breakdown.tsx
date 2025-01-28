@@ -56,6 +56,7 @@ export const IdeaBreakdown: React.FC<IdeaBreakdownProps> = ({ breakdown }) => {
                     priority={priority as "p0" | "p1" | "p2"}
                     toggleSection={toggleSection}
                     expandedSections={expandedSections}
+                    breakdown={breakdown}
                 />
             ))}
 
