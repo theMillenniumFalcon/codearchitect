@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
 import { Breakdown } from "@/types"
+import { PriorityLevel } from "./priority-level"
 
 interface IdeaBreakdownProps {
     breakdown: Breakdown;
@@ -13,6 +14,7 @@ interface IdeaBreakdownProps {
 
 export const IdeaBreakdown: React.FC<IdeaBreakdownProps> = ({ breakdown }) => {
     const [expandedSections, setExpandedSections] = useState<string[]>(["overview", "p0"])
+    const priorities = ["p0", "p1", "p2"]
 
     const toggleSection = (sectionName: string) => {
         setExpandedSections((prev) => (
@@ -47,6 +49,15 @@ export const IdeaBreakdown: React.FC<IdeaBreakdownProps> = ({ breakdown }) => {
                     </CardContent>
                 )}
             </Card>
+
+            {priorities.map((priority) => (
+                <PriorityLevel
+                    key={priority}
+                    priority={priority as "p0" | "p1" | "p2"}
+                    toggleSection={toggleSection}
+                    expandedSections={expandedSections}
+                />
+            ))}
 
             <Card className="blueprint-card">
                 <CardHeader>
