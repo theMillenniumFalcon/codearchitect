@@ -1,5 +1,4 @@
 import "../styles/globals.css"
-import "../styles/carousel-animations.css"
 import "../styles/blueprint.css"
 import { Inter } from "next/font/google"
 

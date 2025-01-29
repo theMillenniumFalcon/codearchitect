@@ -10,17 +10,57 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Query } from "@/types"
-import { mockCurrentQuery, mockQueryHistory } from "@/data"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [currentQuery, setCurrentQuery] = useState<Query>(mockCurrentQuery)
-  const [queryHistory, setQueryHistory] = useState<Query[]>(mockQueryHistory)
+  const [currentQuery, setCurrentQuery] = useState<Query>({
+    idea: "",
+    depth: 1,
+    focusArea: null,
+    breakdown: null
+  })
+  const [queryHistory, setQueryHistory] = useState<Query[]>([])
 
-  const handleSubmit = () => {}
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault()
+    }
+    setIsLoading(true)
+    setError(null)
+    
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(currentQuery)
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to process the idea")
+      }
+      
+      if (!data || typeof data !== "object" || !data.overview) {
+        throw new Error("Invalid response from server")
+      }
+      
+      const newQueryState = {
+        ...currentQuery,
+        breakdown: data
+      }
+      setCurrentQuery(newQueryState)
+      setQueryHistory(prev => [...prev, newQueryState])
+    } catch (error) {
+      console.error("Error:", error)
+      setError(error instanceof Error ? error.message : "An unexpected error occurred")
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-  const handlePromptSelect = (prompt: string) => {
+  const handlePromptSelect = async (prompt: string) => {
     const newQuery = {
       idea: prompt,
       depth: 1,
@@ -33,7 +73,29 @@ export default function Home() {
     setError(null)
 
     try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newQuery)
+      })
+      
+      const data = await response.json()
 
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to process the idea")
+      }
+
+      if (!data || typeof data !== "object" || !data.overview) {
+        throw new Error("Invalid response from server")
+      }
+
+      const newQueryState = {
+        ...newQuery,
+        breakdown: data
+      }
+
+      setCurrentQuery(newQueryState)
+      setQueryHistory(prev => [...prev, newQueryState])
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unexpected error occurred")
     } finally {
